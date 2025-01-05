@@ -28,10 +28,20 @@ export default function HomeScreen({ navigation }) {
     },
   ]);
 
+  // Function to add a new note
+  const addNewNote = (newNote) => {
+    setNotes((prevNotes) => [
+      ...prevNotes,
+      { id: Date.now().toString(), ...newNote },
+    ]);
+  };
+
+  // Function to delete a note
   const deleteNote = (id) => {
     setNotes((prevNotes) => prevNotes.filter((note) => note.id !== id));
   };
 
+  // Render each note
   const renderNote = ({ item }) => (
     <TouchableOpacity style={[styles.noteCard, { backgroundColor: item.color }]}>
       <Text style={styles.noteTitle}>{item.title}</Text>
@@ -69,7 +79,7 @@ export default function HomeScreen({ navigation }) {
         <View style={styles.sidebar}>
           <TouchableOpacity
             style={styles.addButton}
-            onPress={() => navigation.navigate('addNote')}
+            onPress={() => navigation.navigate('addNote', { addNewNote })}
           >
             <Feather name="plus" size={24} color="#000" />
           </TouchableOpacity>
@@ -95,48 +105,47 @@ export default function HomeScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-  },
+    backgroundColor: '#fff' 
+    },
   header: {
     padding: 20,
     borderBottomWidth: 1,
     borderBottomColor: '#eee',
-    alignItems: 'center',
-  },
-  headerTitle: {
-    marginTop: 40,
+    alignItems: 'center' 
+    },
+  headerTitle: { marginTop: 40,
     fontSize: 32,
     fontWeight: 'bold',
-    marginBottom: 15,
-  },
+    marginBottom: 15
+    },
   headerPrefix: {
-    color: '#6c5ce7',
-  },
+     color: '#6c5ce7'
+     },
   searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#f5f5f5',
     borderRadius: 16,
-    paddingHorizontal: 15,
-  },
+    paddingHorizontal: 15
+    },
   searchInput: {
     flex: 1,
     paddingVertical: 12,
     marginLeft: 10,
     fontSize: 16,
     fontFamily: 'Solitreo-Regular', // Apply Solitreo font
-  },
+    },
   content: {
     flex: 1,
-    flexDirection: 'row',
-  },
+    flexDirection: 'row'
+    },
   sidebar: {
     width: 60,
     paddingVertical: 20,
     alignItems: 'center',
     borderRightWidth: 1,
-    borderRightColor: '#eee',
-  },
+    borderRightColor: '#eee'
+    },
   addButton: {
     width: 40,
     height: 40,
@@ -145,56 +154,48 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 20,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
+    elevation: 5
     },
-    shadowOpacity: 0.1,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
   notesContainer: {
-    flex: 1,
-    padding: 20,
-  },
+     flex: 1,
+    padding: 20
+     },
   notesTitle: {
-    fontSize: 32,
+    fontSize: 32, 
     fontWeight: 'bold',
     marginBottom: 20,
+    
   },
   notesGrid: {
-    justifyContent: 'space-between',
-  },
+     justifyContent: 'space-between'
+     },
   noteCard: {
-    width: '48%',
-    padding: 20,
-    borderRadius: 15,
-    marginBottom: 15,
-    minHeight: 150,
-  },
+    width: '48%', 
+    padding: 20, 
+    borderRadius: 15, 
+    marginBottom: 15, 
+    minHeight: 150 },
   noteTitle: {
     fontSize: 16,
     fontWeight: '600',
     marginBottom: 10,
     fontFamily: 'Solitreo-Regular', // Apply Solitreo font
-  },
+    },
   noteContent: {
     fontSize: 14,
     opacity: 0.8,
     marginBottom: 10,
     fontFamily: 'Solitreo-Regular', // Apply Solitreo font
-  },
+    },
   noteFooter: {
     marginTop: 'auto',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    fontFamily: 'Solitreo-Regular', // Apply Solitreo font
-  },
+    alignItems: 'center'
+    },
   noteDate: {
     fontSize: 12,
-    opacity: 0.6,
+    opacity: 0.6, 
     fontFamily: 'Solitreo-Regular', // Apply Solitreo font
-  },
+    },
 });
