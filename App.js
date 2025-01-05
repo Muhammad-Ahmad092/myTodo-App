@@ -1,20 +1,59 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { useFonts } from 'expo-font';
+import AppLoading from 'expo-app-loading';
 
-export default function App() {
+import OpeningPage from './Pages/OpeningPage';
+import LoginScreen from './Pages/loginScreen';
+import SignupScreen from './Pages/signupScreen';
+import HomeScreen from './Pages/HomeScreen';
+import addNote from './Pages/addNote';
+
+const Stack = createStackNavigator();
+
+const App = () => {
+  // Load Solitreo font
+  const [fontsLoaded] = useFonts({
+    'Solitreo-Regular': require('./assets/fonts/Solitreo-Regular.ttf'), // Path to your font file
+  });
+
+  // Show AppLoading while fonts are being loaded
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="OpeningPage">
+        <Stack.Screen 
+          name="OpeningPage" 
+          component={OpeningPage} 
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen 
+          name="LoginScreen" 
+          component={LoginScreen} 
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen 
+          name="SignupScreen" 
+          component={SignupScreen} 
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen 
+          name="HomeScreen" 
+          component={HomeScreen} 
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen 
+          name="addNote" 
+          component={addNote} 
+          options={{ headerShown: false }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
